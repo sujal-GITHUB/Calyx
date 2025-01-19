@@ -1,4 +1,5 @@
 streamlit
 phidata
-google-gemini
+google-generativeai
 duckduckgo-search
+python-dotenv
