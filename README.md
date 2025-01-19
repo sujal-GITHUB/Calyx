@@ -42,9 +42,9 @@ Before using Calyx, you need to have the following:
    ```
 
 3.  Set Up Your Environment Variables:
-  ```bash
-  GEMINI_API_KEY=your-gemini-api-key
-  ```
+   ```bash
+   GEMINI_API_KEY=your-gemini-api-key
+   ```
 
 4. Run the Streamlit App:
    ```bash
