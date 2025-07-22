@@ -98,21 +98,27 @@ if input_method == "Upload a video":
     )
 
     if st.button("🔍 Analyze Uploaded Video", key="analyze_upload_button"):
-        if video_file and user_query:
+        if not video_file:
+            st.warning("Please upload a video file first.")
+        elif not user_query:
+            st.warning("Please enter a question in the text area above.")
+        else:
             with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as temp_video:
                 temp_video.write(video_file.read())
                 video_path = temp_video.name
             
             st.video(video_path)
             analyze_video_content(video_path, user_query, multimodal_agent)
-        else:
-            st.warning("Please upload a video and enter a query before analyzing.")
 
 elif input_method == "Provide a YouTube link":
     yt_url = st.text_input("Enter the YouTube video URL:", placeholder="https://www.youtube.com/watch?v=...")
 
     if st.button("🔍 Analyze YouTube Video", key="analyze_yt_button"):
-        if yt_url and user_query:
+        if not yt_url:
+            st.warning("Please enter a YouTube video URL first.")
+        elif not user_query:
+            st.warning("Please enter a question in the text area above.")
+        else:
             video_path = None
             try:
                 with st.spinner("Downloading video from YouTube..."):
@@ -130,8 +136,6 @@ elif input_method == "Provide a YouTube link":
                 st.error(f"Failed to download or process YouTube video: {e}")
                 if video_path:
                     Path(video_path).unlink(missing_ok=True)
-        else:
-            st.warning("Please provide a YouTube URL and enter a query before analyzing.")
 
 st.markdown("---")
 st.info("Upload a video file or provide a YouTube link and ask a question to begin analysis.")
